@@ -1,0 +1,33 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "antibounce_flg",
+					"strict" : false
+				},
+				{
+					"name" : "SCL",
+					"strict" : false
+				},
+				{
+					"name" : "SDA",
+					"strict" : false
+				},
+				{
+					"name" : "transmit_enable",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "reset",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

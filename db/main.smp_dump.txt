@@ -1,0 +1,10 @@
+
+State Machine - |main|state
+Name state.DEC_BIT_CNT state.BIT_APP_SCL_DOWN state.BIT_APP_SCL_UP state.BIT_SET_SDA state.START_CONDITION_SCL state.START_CONDITION_SDA state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 
+state.START_CONDITION_SDA 0 0 0 0 0 1 1 
+state.START_CONDITION_SCL 0 0 0 0 1 0 1 
+state.BIT_SET_SDA 0 0 0 1 0 0 1 
+state.BIT_APP_SCL_UP 0 0 1 0 0 0 1 
+state.BIT_APP_SCL_DOWN 0 1 0 0 0 0 1 
+state.DEC_BIT_CNT 1 0 0 0 0 0 1 
