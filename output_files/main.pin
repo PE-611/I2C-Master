@@ -148,7 +148,7 @@ RESERVED_INPUT               : 76        :        :                   :         
 RESERVED_INPUT               : 77        :        :                   :         : 5         :                
 RESERVED_INPUT               : 78        :        :                   :         : 5         :                
 antibounce_flg               : 79        : output : 2.5 V             :         : 5         : Y              
-RESERVED_INPUT               : 80        :        :                   :         : 5         :                
+ERROR_TARNSMIT               : 80        : output : 2.5 V             :         : 5         : Y              
 RESERVED_INPUT               : 81        :        :                   :         : 5         :                
 VCCIO5                       : 82        : power  :                   : 2.5V    : 5         :                
 GND                          : 83        : gnd    :                   :         :           :                
@@ -169,7 +169,7 @@ RESERVED_INPUT               : 97        :        :                   :         
 RESERVED_INPUT               : 98        :        :                   :         : 6         :                
 RESERVED_INPUT               : 99        :        :                   :         : 6         :                
 RESERVED_INPUT               : 100       :        :                   :         : 6         :                
-RESERVED_INPUT               : 101       :        :                   :         : 6         :                
+SCL                          : 101       : output : 2.5 V             :         : 6         : Y              
 RESERVED_INPUT               : 102       :        :                   :         : 6         :                
 VCCIO6                       : 103       : power  :                   : 2.5V    : 6         :                
 GND                          : 104       : gnd    :                   :         :           :                
@@ -186,7 +186,7 @@ RESERVED_INPUT               : 114       :        :                   :         
 VCC_ONE                      : 115       : power  :                   : 3.0V/3.3V :           :                
 GND                          : 116       : gnd    :                   :         :           :                
 VCCIO7                       : 117       : power  :                   : 2.5V    : 7         :                
-SCL                          : 118       : output : 2.5 V             :         : 7         : Y              
+RESERVED_INPUT               : 118       :        :                   :         : 7         :                
 SDA                          : 119       : bidir  : 2.5 V             :         : 7         : Y              
 RESERVED_INPUT               : 120       :        :                   :         : 8         :                
 RESERVED_INPUT               : 121       :        :                   :         : 8         :                

@@ -12,6 +12,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "ERROR_TARNSMIT",
+					"strict" : false
+				},
+				{
 					"name" : "SDA",
 					"strict" : false
 				},

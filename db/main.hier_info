@@ -1,4 +1,5 @@
 |main
+clk => ERROR_TARNSMIT~reg0.CLK
 clk => bit_cnt[0].CLK
 clk => bit_cnt[1].CLK
 clk => bit_cnt[2].CLK
@@ -58,6 +59,7 @@ transmit_enable => antibounce_flg.OUTPUTSELECT
 reset => state~3.DATAIN
 antibounce_flg <= antibounce_flg~reg0.DB_MAX_OUTPUT_PORT_TYPE
 SCL <= SCL~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ERROR_TARNSMIT <= ERROR_TARNSMIT~reg0.DB_MAX_OUTPUT_PORT_TYPE
 SDA <> SDA
 
 

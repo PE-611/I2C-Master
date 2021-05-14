@@ -8,13 +8,13 @@
 ///////////////////////////////////////////////////////////
 module main (input clk, transmit_enable, reset,
 				 //input reg [7:0],
-				 output reg antibounce_flg,  SCL,
+				 output reg antibounce_flg,  SCL, ERROR_TARNSMIT,
 				 inout SDA
 				);
 		
 reg [28:0] abnc_cnt;
 		
-		
+initial ERROR_TARNSMIT <= 1'b0;		
 		
 reg [7:0] state;	
 reg [7:0] next_state;
@@ -28,28 +28,29 @@ localparam START_CONDITION_SCL   = 8'd2;
 localparam BIT_SET_SDA				= 8'd3;
 localparam BIT_APP_SCL_UP        = 8'd4;
 localparam BIT_APP_SCL_DOWN      = 8'd5;
-localparam DEC_BIT_CNT   			= 8'd6;			 
+localparam DEC_BIT_CNT   			= 8'd6;
+localparam BIT_APP_ACK_DEL 		= 8'd7;
+localparam BIT_APP_ACK_UP			= 8'd8;
+localparam BIT_APP_ACK_DOWN		= 8'd9;
+			 
 			 
 reg [12:0] cnt;
 reg enable_cnt;
 
 
+
 reg [7:0] DATA [2:0];
 reg [7:0] data;
-initial data <= 8'd240;
+initial data <= 8'd85;
 
 reg [7:0] bit_cnt;
 initial bit_cnt <= 8'd7;
 
 
 
-assign SDA = (1'b1 == 1'b0) ? in_sda : out_sda;
+assign SDA = (state != BIT_APP_ACK_UP) ? out_sda : 1'bZ; 
 
 
-
-
-reg in_sda;
-initial in_sda <= 1'b1;
 reg out_sda;
 initial out_sda <= 1'b1;
 initial SCL <= 1'b1;
@@ -122,11 +123,46 @@ always @*
 			DEC_BIT_CNT:
 		
 				if (bit_cnt == 8'b0) begin
-					next_state <= IDLE;
+					next_state <= BIT_APP_ACK_DEL;
 				end
 				
 				else begin
 					next_state <= BIT_SET_SDA;
+				end
+				
+			BIT_APP_ACK_DEL:
+					
+				if (cnt == 12'd1500) begin
+					next_state <= BIT_APP_ACK_UP;
+				end
+				
+				else begin
+					next_state <= BIT_APP_ACK_DEL;
+				end
+				
+			BIT_APP_ACK_UP:
+				
+				if (cnt == 12'd2000) begin
+					next_state <= BIT_APP_ACK_DOWN;
+				end
+		
+		
+				else begin
+					next_state <= BIT_APP_ACK_UP;
+				end
+				
+			BIT_APP_ACK_DOWN:
+				
+				if (cnt == 12'd3000 && ERROR_TARNSMIT == 1'b0) begin
+					next_state <= IDLE;
+				end
+				
+				else if (cnt == 12'd3000 && ERROR_TARNSMIT == 1'b1) begin
+					next_state <= BIT_SET_SDA;
+				end
+				
+				else begin
+					next_state <= BIT_APP_ACK_DOWN;
 				end
 
 		
@@ -149,8 +185,7 @@ always @(posedge clk) begin
 		abnc_cnt <= 1'b0;
 	end
 	
-		
-		
+	
 	
 	
 	
@@ -191,7 +226,29 @@ always @(posedge clk) begin
 		bit_cnt <= bit_cnt - 1'b1;
 		cnt <= 12'd1000;
 	end
-
+	
+	if (state == BIT_APP_ACK_DEL) begin
+		SCL <= 1'b0;
+		cnt <= cnt + 1'b1;
+	end
+	
+	if (state == BIT_APP_ACK_UP) begin
+		SCL <= 1'b1;
+		cnt <= cnt + 1'b1;
+		
+		if (SDA == 1'b1) begin
+			ERROR_TARNSMIT <= 1'b1;
+		end
+		else begin
+			ERROR_TARNSMIT <= 1'b0;
+		end
+		
+	end
+	
+	if (state == BIT_APP_ACK_DOWN) begin
+		SCL <= 1'b0;
+		cnt <= cnt + 1'b1;
+	end
 				
 		
 		

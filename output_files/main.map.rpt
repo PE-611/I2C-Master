@@ -1,5 +1,5 @@
 Analysis & Synthesis report for main
-Thu May 13 09:57:07 2021
+Fri May 14 10:37:36 2021
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -47,16 +47,16 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Thu May 13 09:57:07 2021       ;
+; Analysis & Synthesis Status        ; Successful - Fri May 14 10:37:35 2021       ;
 ; Quartus Prime Version              ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                      ; main                                        ;
 ; Top-level Entity Name              ; main                                        ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 110                                         ;
-;     Total combinational functions  ; 110                                         ;
-;     Dedicated logic registers      ; 60                                          ;
-; Total registers                    ; 60                                          ;
-; Total pins                         ; 6                                           ;
+; Total logic elements               ; 111                                         ;
+;     Total combinational functions  ; 111                                         ;
+;     Dedicated logic registers      ; 64                                          ;
+; Total registers                    ; 64                                          ;
+; Total pins                         ; 7                                           ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
@@ -183,30 +183,30 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+-----------+
 ; Resource                                    ; Usage     ;
 +---------------------------------------------+-----------+
-; Estimated Total logic elements              ; 110       ;
+; Estimated Total logic elements              ; 111       ;
 ;                                             ;           ;
-; Total combinational functions               ; 110       ;
+; Total combinational functions               ; 111       ;
 ; Logic element usage by number of LUT inputs ;           ;
-;     -- 4 input functions                    ; 30        ;
-;     -- 3 input functions                    ; 18        ;
-;     -- <=2 input functions                  ; 62        ;
+;     -- 4 input functions                    ; 36        ;
+;     -- 3 input functions                    ; 8         ;
+;     -- <=2 input functions                  ; 67        ;
 ;                                             ;           ;
 ; Logic elements by mode                      ;           ;
-;     -- normal mode                          ; 63        ;
+;     -- normal mode                          ; 64        ;
 ;     -- arithmetic mode                      ; 47        ;
 ;                                             ;           ;
-; Total registers                             ; 60        ;
-;     -- Dedicated logic registers            ; 60        ;
+; Total registers                             ; 64        ;
+;     -- Dedicated logic registers            ; 64        ;
 ;     -- I/O registers                        ; 0         ;
 ;                                             ;           ;
-; I/O pins                                    ; 6         ;
+; I/O pins                                    ; 7         ;
 ;                                             ;           ;
 ; Embedded Multiplier 9-bit elements          ; 0         ;
 ;                                             ;           ;
 ; Maximum fan-out node                        ; clk~input ;
-; Maximum fan-out                             ; 60        ;
-; Total fan-out                               ; 469       ;
-; Average fan-out                             ; 2.56      ;
+; Maximum fan-out                             ; 64        ;
+; Total fan-out                               ; 511       ;
+; Average fan-out                             ; 2.69      ;
 +---------------------------------------------+-----------+
 
 
@@ -215,25 +215,28 @@ refer to the applicable agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
-; |main                      ; 110 (110)           ; 60 (60)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 6    ; 0            ; 0          ; |main               ; main        ; work         ;
+; |main                      ; 111 (111)           ; 64 (64)                   ; 0           ; 0          ; 0            ; 0       ; 0         ; 7    ; 0            ; 0          ; |main               ; main        ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |main|state                                                                                                                                                            ;
-+---------------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
-; Name                      ; state.DEC_BIT_CNT ; state.BIT_APP_SCL_DOWN ; state.BIT_APP_SCL_UP ; state.BIT_SET_SDA ; state.START_CONDITION_SCL ; state.START_CONDITION_SDA ; state.IDLE ;
-+---------------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
-; state.IDLE                ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 0          ;
-; state.START_CONDITION_SDA ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 1                         ; 1          ;
-; state.START_CONDITION_SCL ; 0                 ; 0                      ; 0                    ; 0                 ; 1                         ; 0                         ; 1          ;
-; state.BIT_SET_SDA         ; 0                 ; 0                      ; 0                    ; 1                 ; 0                         ; 0                         ; 1          ;
-; state.BIT_APP_SCL_UP      ; 0                 ; 0                      ; 1                    ; 0                 ; 0                         ; 0                         ; 1          ;
-; state.BIT_APP_SCL_DOWN    ; 0                 ; 1                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
-; state.DEC_BIT_CNT         ; 1                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
-+---------------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |main|state                                                                                                                                                                                                                                    ;
++---------------------------+------------------------+----------------------+-----------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
+; Name                      ; state.BIT_APP_ACK_DOWN ; state.BIT_APP_ACK_UP ; state.BIT_APP_ACK_DEL ; state.DEC_BIT_CNT ; state.BIT_APP_SCL_DOWN ; state.BIT_APP_SCL_UP ; state.BIT_SET_SDA ; state.START_CONDITION_SCL ; state.START_CONDITION_SDA ; state.IDLE ;
++---------------------------+------------------------+----------------------+-----------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
+; state.IDLE                ; 0                      ; 0                    ; 0                     ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 0          ;
+; state.START_CONDITION_SDA ; 0                      ; 0                    ; 0                     ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 1                         ; 1          ;
+; state.START_CONDITION_SCL ; 0                      ; 0                    ; 0                     ; 0                 ; 0                      ; 0                    ; 0                 ; 1                         ; 0                         ; 1          ;
+; state.BIT_SET_SDA         ; 0                      ; 0                    ; 0                     ; 0                 ; 0                      ; 0                    ; 1                 ; 0                         ; 0                         ; 1          ;
+; state.BIT_APP_SCL_UP      ; 0                      ; 0                    ; 0                     ; 0                 ; 0                      ; 1                    ; 0                 ; 0                         ; 0                         ; 1          ;
+; state.BIT_APP_SCL_DOWN    ; 0                      ; 0                    ; 0                     ; 0                 ; 1                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
+; state.DEC_BIT_CNT         ; 0                      ; 0                    ; 0                     ; 1                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
+; state.BIT_APP_ACK_DEL     ; 0                      ; 0                    ; 1                     ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
+; state.BIT_APP_ACK_UP      ; 0                      ; 1                    ; 0                     ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
+; state.BIT_APP_ACK_DOWN    ; 1                      ; 0                    ; 0                     ; 0                 ; 0                      ; 0                    ; 0                 ; 0                         ; 0                         ; 1          ;
++---------------------------+------------------------+----------------------+-----------------------+-------------------+------------------------+----------------------+-------------------+---------------------------+---------------------------+------------+
 
 
 +------------------------------------------------------------+
@@ -258,10 +261,10 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 60    ;
+; Total registers                              ; 64    ;
 ; Number of registers using Synchronous Clear  ; 29    ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 7     ;
+; Number of registers using Synchronous Load   ; 13    ;
+; Number of registers using Asynchronous Clear ; 10    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 8     ;
 ; Number of registers using Preset             ; 0     ;
@@ -274,9 +277,9 @@ Encoding Type:  One-Hot
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
 ; SCL~reg0                               ; 2       ;
-; bit_cnt[2]                             ; 3       ;
+; bit_cnt[2]                             ; 2       ;
 ; bit_cnt[1]                             ; 2       ;
-; bit_cnt[0]                             ; 2       ;
+; bit_cnt[0]                             ; 3       ;
 ; out_sda                                ; 2       ;
 ; Total number of inverted registers = 5 ;         ;
 +----------------------------------------+---------+
@@ -287,8 +290,8 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |main|bit_cnt[5]           ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; Yes        ; |main|cnt[1]               ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |main|bit_cnt[7]           ;
+; 5:1                ; 13 bits   ; 39 LEs        ; 26 LEs               ; 13 LEs                 ; Yes        ; |main|cnt[2]               ;
 ; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |main|bit_cnt[2]           ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
 
@@ -298,25 +301,27 @@ Encoding Type:  One-Hot
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; boundary_port         ; 6                           ;
-; cycloneiii_ff         ; 60                          ;
-;     CLR               ; 7                           ;
+; boundary_port         ; 7                           ;
+; cycloneiii_ff         ; 64                          ;
+;     CLR               ; 10                          ;
 ;     ENA               ; 8                           ;
 ;     SCLR              ; 29                          ;
-;     plain             ; 16                          ;
+;     SLD               ; 13                          ;
+;     plain             ; 4                           ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 111                         ;
+; cycloneiii_lcell_comb ; 112                         ;
 ;     arith             ; 47                          ;
 ;         2 data inputs ; 46                          ;
 ;         3 data inputs ; 1                           ;
-;     normal            ; 64                          ;
+;     normal            ; 65                          ;
+;         0 data inputs ; 1                           ;
 ;         1 data inputs ; 4                           ;
-;         2 data inputs ; 13                          ;
-;         3 data inputs ; 17                          ;
-;         4 data inputs ; 30                          ;
+;         2 data inputs ; 17                          ;
+;         3 data inputs ; 7                           ;
+;         4 data inputs ; 36                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 3.19                        ;
+; Average LUT depth     ; 3.13                        ;
 +-----------------------+-----------------------------+
 
 
@@ -335,32 +340,28 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Thu May 13 09:56:58 2021
+    Info: Processing started: Fri May 14 10:37:28 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off main -c main
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file i2c master.v
     Info (12023): Found entity 1: main File: C:/intelFPGA_lite/18.1/Projects/I2C Master/I2C Master.v Line: 9
 Info (12127): Elaborating entity "main" for the top level hierarchy
-Warning (13034): The following nodes have both tri-state and non-tri-state drivers
-    Warning (13035): Inserted always-enabled tri-state buffer between "SDA" and its non-tri-state driver. File: C:/intelFPGA_lite/18.1/Projects/I2C Master/I2C Master.v Line: 13
-Warning (13009): TRI or OPNDRN buffers permanently enabled
-    Warning (13010): Node "SDA~synth" File: C:/intelFPGA_lite/18.1/Projects/I2C Master/I2C Master.v Line: 13
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 8 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/intelFPGA_lite/18.1/Projects/I2C Master/output_files/main.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 116 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 118 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 2 output pins
+    Info (21059): Implemented 3 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 110 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4772 megabytes
-    Info: Processing ended: Thu May 13 09:57:07 2021
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:19
+    Info (21061): Implemented 111 logic cells
+Info (144001): Generated suppressed messages file C:/intelFPGA_lite/18.1/Projects/I2C Master/output_files/main.map.smsg
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4770 megabytes
+    Info: Processing ended: Fri May 14 10:37:36 2021
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:17
 
 
 +------------------------------------------+
