@@ -96,7 +96,7 @@ RESERVED_INPUT               : 24        :        :                   :         
 transmit_enable              : 25        : input  : 2.5 V             :         : 1B        : Y              
 clk                          : 26        : input  : 2.5 V             :         : 2         : Y              
 RESERVED_INPUT               : 27        :        :                   :         : 2         :                
-reset                        : 28        : input  : 2.5 V             :         : 2         : N              
+RESERVED_INPUT               : 28        :        :                   :         : 2         :                
 RESERVED_INPUT               : 29        :        :                   :         : 2         :                
 RESERVED_INPUT               : 30        :        :                   :         : 2         :                
 VCCIO2                       : 31        : power  :                   : 2.5V    : 2         :                
@@ -157,7 +157,7 @@ RESERVED_INPUT               : 85        :        :                   :         
 RESERVED_INPUT               : 86        :        :                   :         : 5         :                
 RESERVED_INPUT               : 87        :        :                   :         : 5         :                
 RESERVED_INPUT               : 88        :        :                   :         : 6         :                
-RESERVED_INPUT               : 89        :        :                   :         : 6         :                
+reset                        : 89        : input  : 2.5 V             :         : 6         : Y              
 RESERVED_INPUT               : 90        :        :                   :         : 6         :                
 RESERVED_INPUT               : 91        :        :                   :         : 6         :                
 RESERVED_INPUT               : 92        :        :                   :         : 6         :                

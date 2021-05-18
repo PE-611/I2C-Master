@@ -68,4 +68,5 @@ set_location_assignment PIN_101 -to SCL
 set_location_assignment PIN_79 -to antibounce_flg
 set_location_assignment PIN_25 -to transmit_enable
 set_location_assignment PIN_80 -to ERROR_TARNSMIT
+set_location_assignment PIN_89 -to reset
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
