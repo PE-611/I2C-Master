@@ -33,10 +33,11 @@ localparam BIT_APP_ACK_DEL 		= 8'd7;
 localparam BIT_APP_ACK_UP			= 8'd8;
 localparam BIT_APP_ACK_DOWN		= 8'd9;
 localparam DEC_BYTE_CNT          = 8'd10;
-localparam ERROR_TRANSMIT_DEL    = 8'd11;
-localparam TRANSMIT_RESTART      = 8'd12; 
-localparam STOP_CONDITION_SCL    = 8'd13;
-localparam STOP_CONDITION_SDA    = 8'd14;
+localparam WAIT_TRANSMIT         = 8'd11;
+localparam ERROR_TRANSMIT_DEL    = 8'd12;
+localparam TRANSMIT_RESTART      = 8'd13; 
+localparam STOP_CONDITION_SCL    = 8'd14;
+localparam STOP_CONDITION_SDA    = 8'd15;
 			 
 			 
 reg [12:0] cnt;
@@ -55,7 +56,7 @@ initial byte_cnt <= 8'd2;
 
 
 
-assign SDA = (state == IDLE || state == BIT_APP_ACK_UP) ? 1'bZ : out_sda; 
+assign SDA = (state == IDLE || state == BIT_APP_ACK_UP || state == WAIT_TRANSMIT) ? 1'bZ : out_sda; 
 
 
 reg out_sda;
@@ -165,7 +166,7 @@ always @*
 				end
 				
 				else if (cnt == 12'd3000 && ERROR_TARNSMIT == 1'b1) begin
-					next_state <= ERROR_TRANSMIT_DEL;					//// При ошибке перередачи (отсутствие бита АСК) переходим в состояние ERROR_TRANSMIT_DEL немнорго ждем
+					next_state <= ERROR_TRANSMIT_DEL;					//// При ошибке передачи (отсутствие бита АСК) переходим в состояние ERROR_TRANSMIT_DEL немнорго ждем
 				end
 				
 				else begin
@@ -181,7 +182,18 @@ always @*
 				end
 				
 				else begin
+					next_state <= WAIT_TRANSMIT;
+				end
+				
+			
+			WAIT_TRANSMIT:
+			
+				if (SDA == 1'b1) begin
 					next_state <= BIT_SET_SDA;
+				end
+				
+				else begin
+					next_state <= WAIT_TRANSMIT;
 				end
 			
 			
@@ -219,7 +231,7 @@ always @*
 				
 			STOP_CONDITION_SDA:
 				
-				if (cnt == 12'd4000) begin
+				if (cnt >= 12'd4000) begin
 					next_state <= IDLE;
 				end
 				
@@ -261,6 +273,7 @@ DATA[2] <= 8'd192;
 		bit_cnt <= 8'd7;
 		byte_cnt <= 8'd2;
 		ERROR_TARNSMIT <= 1'b0;
+		data <= DATA[2];
 	end
 	
 	if (state == START_CONDITION_SDA) begin
@@ -318,10 +331,15 @@ DATA[2] <= 8'd192;
 	end
 	
 	if (state == DEC_BYTE_CNT) begin
-		data <= DATA[byte_cnt];
 		byte_cnt <= byte_cnt - 1'b1;
 		bit_cnt <= 8'd7;
 		cnt <= 12'd1000;
+		out_sda <= 1'b1;
+	end
+	
+	if (state == WAIT_TRANSMIT) begin
+		SCL <= 1'b0;
+		data <= DATA[byte_cnt];
 	end
 	
 	if (state == ERROR_TRANSMIT_DEL) begin

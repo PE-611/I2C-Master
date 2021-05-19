@@ -1,1 +1,1 @@
-Info (10281): Verilog HDL Declaration information at I2C Master.v(47): object "DATA" differs only in case from object "data" in the same scope File: C:/intelFPGA_lite/18.1/Projects/I2C Master/I2C Master.v Line: 47
+Info (10281): Verilog HDL Declaration information at I2C Master.v(48): object "DATA" differs only in case from object "data" in the same scope File: C:/intelFPGA_lite/18.1/Projects/I2C Master/I2C Master.v Line: 48
